@@ -2,7 +2,10 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>坦克大战</title>
     <style>
         body {
@@ -14,6 +17,8 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            touch-action: none;
+            overflow: hidden;
         }
         
         .game-container {
@@ -21,6 +26,8 @@
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            max-width: 100%;
+            box-sizing: border-box;
         }
         
         .game-title {
@@ -36,6 +43,8 @@
             border-radius: 5px;
             background: #000;
             display: block;
+            max-width: 100%;
+            height: auto;
         }
         
         .game-info {
@@ -59,6 +68,8 @@
             color: #fff;
             margin-bottom: 15px;
             font-size: 1.1em;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         
         .score-item {
@@ -66,6 +77,72 @@
             padding: 8px 15px;
             border-radius: 5px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            flex: 1;
+            min-width: 0;
+            text-align: center;
+        }
+        
+        /* 移动端控制按钮 */
+        .mobile-controls {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+        
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px;
+            touch-action: manipulation;
+            user-select: none;
+        }
+        
+        .control-btn:active {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        .control-row {
+            display: flex;
+            justify-content: center;
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .game-container {
+                padding: 15px;
+            }
+            
+            .game-title {
+                font-size: 2em;
+            }
+            
+            .score-board {
+                font-size: 1em;
+            }
+            
+            .mobile-controls {
+                display: block;
+            }
+            
+            #gameCanvas {
+                width: 100%;
+                max-width: 400px;
+            }
         }
     </style>
 </head>
@@ -83,6 +160,21 @@
         </div>
         <div class="controls">
             控制: WASD移动 | 空格射击 | R重新开始
+        </div>
+    </div>
+    
+    <!-- 移动端控制按钮 -->
+    <div class="mobile-controls">
+        <div class="control-row">
+            <div class="control-btn" id="btnUp">↑</div>
+        </div>
+        <div class="control-row">
+            <div class="control-btn" id="btnLeft">←</div>
+            <div class="control-btn" id="btnShoot">🔥</div>
+            <div class="control-btn" id="btnRight">→</div>
+        </div>
+        <div class="control-row">
+            <div class="control-btn" id="btnDown">↓</div>
         </div>
     </div>
     

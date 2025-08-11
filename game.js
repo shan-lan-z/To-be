@@ -39,6 +39,74 @@ let explosions = [];
 // 按键状态
 let keys = {};
 
+// 移动端控制状态
+let mobileControls = {
+    up: false,
+    down: false,
+    left: false,
+    right: false,
+    shoot: false
+};
+
+// 检测是否为移动设备
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+// 初始化移动端控制
+function initMobileControls() {
+    if (!isMobile) return;
+    
+    // 移动控制按钮
+    document.getElementById('btnUp').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        mobileControls.up = true;
+    });
+    document.getElementById('btnUp').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        mobileControls.up = false;
+    });
+    
+    document.getElementById('btnDown').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        mobileControls.down = true;
+    });
+    document.getElementById('btnDown').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        mobileControls.down = false;
+    });
+    
+    document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        mobileControls.left = true;
+    });
+    document.getElementById('btnLeft').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        mobileControls.left = false;
+    });
+    
+    document.getElementById('btnRight').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        mobileControls.right = true;
+    });
+    document.getElementById('btnRight').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        mobileControls.right = false;
+    });
+    
+    document.getElementById('btnShoot').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        mobileControls.shoot = true;
+    });
+    document.getElementById('btnShoot').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        mobileControls.shoot = false;
+    });
+    
+    // 防止页面滚动
+    document.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+    }, { passive: false });
+}
+
 // 初始化游戏
 function initGame() {
     gameState = {
@@ -213,7 +281,7 @@ function updateGame() {
     
     const now = Date.now();
     
-    // 玩家坦克移动
+    // 玩家坦克移动（键盘控制）
     if (keys['w'] || keys['W']) {
         playerTank.direction = 0;
         if (playerTank.y > 0) playerTank.y -= TANK_SPEED;
@@ -231,8 +299,26 @@ function updateGame() {
         if (playerTank.x < CANVAS_WIDTH - TANK_SIZE) playerTank.x += TANK_SPEED;
     }
     
-    // 玩家射击
-    if (keys[' ']) {
+    // 移动端控制
+    if (mobileControls.up) {
+        playerTank.direction = 0;
+        if (playerTank.y > 0) playerTank.y -= TANK_SPEED;
+    }
+    if (mobileControls.down) {
+        playerTank.direction = 2;
+        if (playerTank.y < CANVAS_HEIGHT - TANK_SIZE) playerTank.y += TANK_SPEED;
+    }
+    if (mobileControls.left) {
+        playerTank.direction = 3;
+        if (playerTank.x > 0) playerTank.x -= TANK_SPEED;
+    }
+    if (mobileControls.right) {
+        playerTank.direction = 1;
+        if (playerTank.x < CANVAS_WIDTH - TANK_SIZE) playerTank.x += TANK_SPEED;
+    }
+    
+    // 玩家射击（键盘和移动端）
+    if (keys[' '] || mobileControls.shoot) {
         shootBullet(playerTank, true);
     }
     
@@ -445,4 +531,5 @@ document.addEventListener('keydown', (e) => {
 
 // 开始游戏
 initGame();
+initMobileControls();
 gameLoop();
