@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>坦克大战</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .game-container {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .game-title {
+            color: #fff;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        #gameCanvas {
+            border: 3px solid #333;
+            border-radius: 5px;
+            background: #000;
+            display: block;
+        }
+        
+        .game-info {
+            color: #fff;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+        
+        .controls {
+            color: #fff;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        .score-board {
+            display: flex;
+            justify-content: space-between;
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .score-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="game-title">坦克大战</h1>
+        <div class="score-board">
+            <div class="score-item">得分: <span id="score">0</span></div>
+            <div class="score-item">生命: <span id="lives">3</span></div>
+            <div class="score-item">敌人: <span id="enemies">5</span></div>
+        </div>
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div class="game-info">
+            <div id="gameStatus">游戏开始！</div>
+        </div>
+        <div class="controls">
+            控制: WASD移动 | 空格射击 | R重新开始
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html>
