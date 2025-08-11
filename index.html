@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>坦克大战</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            touch-action: none;
+            overflow: hidden;
+        }
+        
+        .game-container {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .game-title {
+            color: #fff;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        #gameCanvas {
+            border: 3px solid #333;
+            border-radius: 5px;
+            background: #000;
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .game-info {
+            color: #fff;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+        
+        .controls {
+            color: #fff;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        .score-board {
+            display: flex;
+            justify-content: space-between;
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .score-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            flex: 1;
+            min-width: 0;
+            text-align: center;
+        }
+        
+        /* 移动端控制按钮 */
+        .mobile-controls {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+        
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px;
+            touch-action: manipulation;
+            user-select: none;
+        }
+        
+        .control-btn:active {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        .control-row {
+            display: flex;
+            justify-content: center;
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .game-container {
+                padding: 15px;
+            }
+            
+            .game-title {
+                font-size: 2em;
+            }
+            
+            .score-board {
+                font-size: 1em;
+            }
+            
+            .mobile-controls {
+                display: block;
+            }
+            
+            #gameCanvas {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="game-title">坦克大战</h1>
+        <div class="score-board">
+            <div class="score-item">得分: <span id="score">0</span></div>
+            <div class="score-item">生命: <span id="lives">3</span></div>
+            <div class="score-item">敌人: <span id="enemies">5</span></div>
+        </div>
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div class="game-info">
+            <div id="gameStatus">游戏开始！</div>
+        </div>
+        <div class="controls">
+            控制: WASD移动 | 空格射击 | R重新开始
+        </div>
+    </div>
+    
+    <!-- 移动端控制按钮 -->
+    <div class="mobile-controls">
+        <div class="control-row">
+            <div class="control-btn" id="btnUp">↑</div>
+        </div>
+        <div class="control-row">
+            <div class="control-btn" id="btnLeft">←</div>
+            <div class="control-btn" id="btnShoot">🔥</div>
+            <div class="control-btn" id="btnRight">→</div>
+        </div>
+        <div class="control-row">
+            <div class="control-btn" id="btnDown">↓</div>
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html>

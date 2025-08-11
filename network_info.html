@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>坦克大战 - 网络连接信息</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(0,0,0,0.3);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .info-box {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+        .warning-box {
+            background: rgba(255,193,7,0.2);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #FFC107;
+        }
+        .code {
+            background: rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            word-break: break-all;
+        }
+        .button {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 5px;
+            transition: background 0.3s;
+        }
+        .button:hover {
+            background: #45a049;
+        }
+        .qr-code {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .step {
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 坦克大战游戏 - 网络连接指南</h1>
+        
+        <div class="info-box">
+            <h2>📱 移动设备访问方法</h2>
+            <p>由于您在容器环境中运行游戏，移动设备需要通过以下方式连接：</p>
+        </div>
+
+        <div class="step">
+            <h3>方法1: 局域网访问（推荐）</h3>
+            <p>如果您的移动设备和运行游戏的电脑在同一WiFi网络下：</p>
+            <ol>
+                <li>确保移动设备和电脑连接到同一个WiFi网络</li>
+                <li>在电脑上查看IP地址（Windows: ipconfig, Mac/Linux: ifconfig）</li>
+                <li>在移动设备浏览器中输入：<span class="code">http://[电脑IP]:8080</span></li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>方法2: 使用ngrok公网访问</h3>
+            <p>如果不在同一网络，可以使用ngrok创建公网隧道：</p>
+            <ol>
+                <li>在电脑上安装ngrok</li>
+                <li>运行命令：<span class="code">ngrok http 8080</span></li>
+                <li>使用ngrok提供的公网地址访问</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>方法3: 端口转发</h3>
+            <p>如果使用虚拟机或Docker：</p>
+            <ol>
+                <li>配置端口转发：8080 -> 8080</li>
+                <li>使用主机IP地址访问</li>
+            </ol>
+        </div>
+
+        <div class="warning-box">
+            <h3>⚠️ 重要提示</h3>
+            <ul>
+                <li>确保防火墙允许8080端口访问</li>
+                <li>游戏服务器已绑定到0.0.0.0:8080</li>
+                <li>移动设备会自动显示触摸控制按钮</li>
+                <li>建议使用Chrome或Firefox浏览器</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>🎮 游戏控制</h3>
+            <p><strong>移动端：</strong>屏幕底部的虚拟方向键和射击按钮</p>
+            <p><strong>桌面端：</strong>WASD移动，空格射击，R重新开始</p>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="index.html" class="button">🎮 开始游戏</a>
+            <a href="http://localhost:8080" class="button">🔗 本地访问</a>
+        </div>
+
+        <div class="info-box">
+            <h3>🔧 故障排除</h3>
+            <ul>
+                <li>如果无法连接，检查网络设置</li>
+                <li>尝试其他端口（3000、8000等）</li>
+                <li>确保服务器正在运行</li>
+                <li>检查防火墙和路由器设置</li>
+            </ul>
+        </div>
+
+        <div class="qr-code">
+            <p><strong>💡 小贴士：</strong></p>
+            <p>您可以将游戏地址生成二维码，方便移动设备扫描访问！</p>
+        </div>
+    </div>
+
+    <script>
+        // 显示当前页面URL，方便用户复制
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUrl = window.location.href;
+            const gameUrl = currentUrl.replace('network_info.html', 'index.html');
+            
+            // 创建游戏链接
+            const gameLink = document.createElement('div');
+            gameLink.className = 'info-box';
+            gameLink.innerHTML = `
+                <h3>🎯 当前游戏地址</h3>
+                <p>复制以下地址到移动设备浏览器：</p>
+                <div class="code">${gameUrl}</div>
+                <p>或者直接访问：<a href="${gameUrl}" class="button">🎮 打开游戏</a></p>
+            `;
+            
+            document.querySelector('.container').appendChild(gameLink);
+        });
+    </script>
+</body>
+</html>
